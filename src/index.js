@@ -38,13 +38,13 @@ function onSearch(event) {
 
 function fetchData() {
   loadMoreBtn.disable();
-
+  const rect = galleryContainerRef.clientHeight;
   apiService
     .fetchData()
     .then(data => {
       appendMarkup(data);
       loadMoreBtn.enable();
-      scrollToNewPics();
+      scrollToNewPics(rect);
     })
     .catch(err => {
       notific.myError(err);
@@ -59,10 +59,12 @@ function clearContainer() {
   galleryContainerRef.innerHTML = '';
 }
 
-function scrollToNewPics() {
-  const rect = loadMoreBtn.refs.button.getBoundingClientRect();
+function scrollToNewPics(rect) {
+  // const rect = loadMoreBtn.refs.button.getBoundingClientRect();
+  // const rect = galleryContainerRef.clientHeight;
   window.scrollTo({
-    top: rect.bottom + window.pageYOffset,
+    // top: rect.bottom + window.pageYOffset,
+    top: rect,
     behavior: 'smooth',
   });
   console.log(rect.bottom);
